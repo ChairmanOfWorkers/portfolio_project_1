@@ -1,0 +1,19 @@
+<!-- Код вывода популярных статей на странице каждой статьи -->
+<h2 class='sidebar-title'>Популярные посты</h2>
+<div class="grid">
+    <div class="border-start border-secondary">
+        {% for post in posts %}
+        <div class="sidebar_item popular">
+            {% if post.photo %}
+            <img src="{{ post.photo.url }}" class="img-fluid float-start p-2" style="max-width:100px" alt="{{ post.title }}">
+            {% else %}
+            <img src="..." class="img-fluid float-start" alt="...">
+            {% endif %}
+            <div class="sidebar_text">
+                <h6><a href="{{ post.get_absolute_url }}" style="text-decoration:none">{{ post.title|slice:45|safe }}...</a></h6>
+                <p><span>{{ post.created_at|date:"D. d M Y" }}</span></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

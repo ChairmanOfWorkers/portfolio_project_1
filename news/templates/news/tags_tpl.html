@@ -1,0 +1,9 @@
+<!-- Код для вывода тегов с краю страницы отдельных статей -->
+<h2 class='sidebar-title'>Теги</h2>
+<div class="grid">
+    <div class="border-start border-secondary">
+        {% for tag in tags %}
+        <a href="{{ tag.get_absolute_url }}" class="text-light bg-primary rounded ms-3 me-1 p-1" style="text-decoration:none; line-height:250%">{{ tag.title }}</a>
+        {% endfor %}
+    </div>
+</div>

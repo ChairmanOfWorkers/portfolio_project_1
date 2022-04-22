@@ -1,0 +1,69 @@
+<!-- Код для вывода статьи и ее содержания -->
+{% extends 'news/base.html' %}
+{% load popular_news %}
+{%block title%}{{ posts.title }}{%endblock%}
+{%block main%}
+<section>
+    <div class="container">
+        <div class="border-bottom border-secondary">
+            <div class='text-center'>
+                <h1>{{ posts.title }}</h1>
+            </div>
+        </div>
+        <br>
+    </div>
+    <div class="col-md-10 offset-md-1">
+        <div class="text-center">
+            <img src="{{ posts.photo.url }}" class="img-fluid" width="100%" height-auto>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="col-md-8 offset-md-1">
+        <span>
+            <br>
+            Категория: <a href="{{ posts.category.get_absolute_url }}">{{ posts.category }}</a>
+        </span>
+        <br>
+        {% if posts.tags.exists %}
+        <span>
+            Теги:
+            {% for tag in posts.tags.all %}
+            <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+            {% endfor %}
+        </span>
+        <br>
+        {% endif %}
+    </div>
+</section>
+<section>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="border-bottom border-secondary">
+                    <h4>{{ posts.content|safe }}</h4>
+                </div>
+            </div>
+            <div class="col-md-4">
+                {% get_popular 5 %}<br>
+                {% get_tags %}
+            </div>
+        </div>
+        <div class="col-md-8">
+            Опублековано: {{ posts.created_at|date:"D. d M Y" }}
+        </div>
+        <span class="col-md-8">
+            Просмотров: {{ posts.views }}
+        </span>
+    </div>
+    <br>
+    <div class="container">
+        <div class="col-md-8">
+            <a href="{% url 'home' %}">
+                <button type="button" class="btn btn-primary">Главая</button>
+            </a>
+        </div>
+    </div>
+</section>
+{%endblock%}
